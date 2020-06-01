@@ -3,22 +3,17 @@
 try {
     $videoId = getLiveVideoID('UCg10E9fH2luhCBU0gvaX3CA');
 
-    // Output the Chat URL
     echo "The Chat URL is https://www.youtube.com/live_chat?v=".$videoId;
-} catch(Exception $e) {
-    // Echo the generated error
+} catch(Exception $e) 
     echo "ERROR: ".$e->getMessage();
 }
 
-// The method which finds the video ID
 function getLiveVideoID($channelId)
 {
     $videoId = null;
 
-    // Fetch the livestream page
     if($data = file_get_contents('https://www.youtube.com/embed/live_stream?channel='.$channelId))
     {
-        // Find the video ID in there
         if(preg_match('/\'VIDEO_ID\': \"(.*?)\"/', $data, $matches))
             $videoId = $matches[1];
         else
